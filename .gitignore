@@ -1,6 +1,9 @@
 .DS_Store
 node_modules
 /dist
+low_wages.json
+uniqueSubways.json
+uniqueSubways0.json
 
 # local env files
 .env.local
