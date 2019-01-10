@@ -8,12 +8,10 @@
 
 <script>
 import TidyTree from '@/components/TidyTree'
-import SimpleTree from '@/components/SimpleTree'
 
 export default {
   name: 'App',
   components: {
-    SimpleTree,
     TidyTree
   },
   data () {
