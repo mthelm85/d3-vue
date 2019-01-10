@@ -22,8 +22,8 @@
             class="node"
             v-for="d in descendants"
             :key="d.id"
-            :cx="d.y"
-            :cy="d.x"
+            :cx="d.x"
+            :cy="d.y"
             r=4></circle>
       </g>
       <g>
@@ -31,8 +31,8 @@
           class="text"
           v-for="(d, i) in descendants"
           :key="d+i"
-          :dx="d.y"
-          :dy="d.x"
+          :dx="d.x"
+          :dy="d.y"
           transform="translate(10 5)">
           {{ d.data.name }}
         </text>
@@ -47,13 +47,13 @@ import * as d3 from 'd3'
 export default {
   data () {
     return {
-      data: require('@/assets/uniqueSubways0.json'),
+      data: require('@/assets/naicsTree.json'),
       descendants: null,
-      height: 1000,
+      height: 3000,
       links: null,
       root: null,
       treeLayout: null,
-      width: 1000
+      width: 5000
 
     }
   },
@@ -62,10 +62,9 @@ export default {
     computePath (l) {
       // see https://www.dashingd3js.com/svg-paths-and-d3js and d3 cluster dendrogram on observable
       return `
-        M${l.target.y},${l.target.x}
-        C${l.source.y + this.root.y / 2},${l.target.x}
-         ${l.source.y + this.root.y / 2},${l.source.x}
-         ${l.source.y},${l.source.x}
+        M${l.source.x},${l.source.y}
+        S${l.source.x},${l.source.y}
+        ${l.target.x},${l.target.y}
       `
     }
   },
@@ -82,7 +81,7 @@ export default {
 
     // Create the tree layout, set up size, add some padding
     this.treeLayout = d3.tree()
-      .size([900, 600])
+      .size([3000, 2000])
 
     // pass root to treeLayout which writes x, y values on each node of root (used for positioning)
     this.treeLayout(this.root)
@@ -106,7 +105,4 @@ export default {
   stroke-width: 1px;
 }
 
-.text {
-  font-size: 12px;
-}
 </style>
