@@ -4,6 +4,8 @@ node_modules
 low_wages.json
 uniqueSubways.json
 uniqueSubways0.json
+CMPs by Industry FY18.csv
+cmp.json
 
 # local env files
 .env.local
