@@ -1,7 +1,7 @@
 <template lang="html">
-  <svg :width="width" :height="height">
-    <g transform="translate(10 5)">
-      <g>
+  <svg :width="width" :height="height" transform="translate(10 10)">
+    <g>
+      <g stroke="#000">
         <rect
           class="node"
           v-for="n in data.nodes"
@@ -17,30 +17,31 @@
         <path
           v-for="l in data.links"
           :d="sankeyLink(l)"
-          :key="l.value + l.y0"
-          stroke="#606060"
+          :key="l.target.name + l.source.name"
+          :stroke="`url(#${l.index})`"
           :stroke-width="Math.max(1, l.width)"
-          stroke-opacity="0.4"
-          >
+          class="sankey-link">
+          <title>
+            <text>${{ l.value.toLocaleString(undefined, {minimumFractionDigits: 2, maximumFractionDigits: 2}) }}</text>
+          </title>
         </path>
         <linearGradient
           v-for="l in data.links"
-          :id="l.target.name + l.source.name"
-          :key="l.target.name + l.source.name"
-          gradientUnits="userSpaceOnUse"
-          :x1="l.source.x1"
-          :x2="l.target.x0">
+          :id="l.index"
+          :key="l.source.name + l.target.name">
           <stop offset="0%" :stop-color="color(l.source.name.replace(/ .*/, ''))"></stop>
           <stop offset="100%" :stop-color="color(l.target.name.replace(/ .*/, ''))"></stop>
         </linearGradient>
       </g>
       <g>
         <text
+          class="node-label"
           v-for="n in data.nodes"
           :x="n.x0 < width / 2 ? n.x1 + 6 : n.x0 - 6"
+          :key="`${n.name}asd`"
           :y="(n.y1 + n.y0) / 2"
           text-anchor="n.x0 < width / 2 ? 'start : 'end"
-          transform="translate(-20 5)">
+          :transform="textTransform(n.index)">
           {{ n.name }}
         </text>
       </g>
@@ -58,8 +59,8 @@ export default {
       color: null,
       sankey: null,
       sankeyLink: null,
-      width: 1400,
-      height: 1800
+      width: 1200,
+      height: 1000
     }
   },
 
@@ -69,6 +70,9 @@ export default {
     },
     rectWidth (x1, x0) {
       return Math.abs(x1 - x0)
+    },
+    textTransform (n) {
+      return n === 0 ? 'translate(10, 5)' : 'translate(-25 5)'
     }
   },
 
@@ -76,7 +80,7 @@ export default {
     this.sankey = Sankey.sankey()
       .nodeWidth(25)
       .nodePadding(10)
-      .size([this.width, this.height])
+      .size([this.width - 20, this.height - 20])
 
     this.color = d3.scaleOrdinal(d3.schemeCategory10)
     this.sankey(this.data)
@@ -86,4 +90,15 @@ export default {
 </script>
 
 <style lang="css">
+.node-label {
+  font: 10px sans-serif;
+}
+
+.sankey-link {
+  stroke-opacity: 0.4
+}
+
+.sankey-link:hover {
+  stroke-opacity: 0.8
+}
 </style>
