@@ -7,6 +7,7 @@ uniqueSubways0.json
 CMPs by Industry FY18.csv
 cmp.json
 cmp23.json
+cmpNames.json
 
 # local env files
 .env.local

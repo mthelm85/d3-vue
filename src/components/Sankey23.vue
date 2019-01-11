@@ -35,12 +35,12 @@
       </g>
       <g>
         <text
-          class="node-label"
           v-for="n in data.nodes"
+          :class="nodeTextClass(n)"
           :x="n.x0 < width / 2 ? n.x1 + 6 : n.x0 - 6"
           :key="`${n.name}asd`"
           :y="(n.y1 + n.y0) / 2"
-          text-anchor="n.x0 < width / 2 ? 'start : 'end"
+          :text-anchor="n.x0 < width / 2 ? 'start' : 'end'"
           :transform="textTransform(n.index)">
           {{ n.name }}
         </text>
@@ -55,7 +55,7 @@ import * as Sankey from 'd3-sankey'
 export default {
   data () {
     return {
-      data: require('@/assets/cmp23.json'),
+      data: require('@/assets/cmpNames.json'), // $20k or more, excludes 09 naics
       color: null,
       sankey: null,
       sankeyLink: null,
@@ -65,6 +65,13 @@ export default {
   },
 
   methods: {
+    nodeTextClass (n) {
+      switch (n.depth) {
+        case 0: return 'root-label'
+        case 1: return 'mid-label'
+        case 2: return 'node-label'
+      }
+    },
     rectHeight (y1, y0) {
       return Math.abs(y1 - y0)
     },
@@ -72,7 +79,7 @@ export default {
       return Math.abs(x1 - x0)
     },
     textTransform (n) {
-      return n === 0 ? 'translate(10, 5)' : 'translate(-25 5)'
+      return n === 0 ? 'translate(2, 5)' : 'translate(-2 5)'
     }
   },
 
@@ -92,6 +99,14 @@ export default {
 <style lang="css">
 .node-label {
   font: 10px sans-serif;
+}
+
+.root-label {
+  font: 18px sans-serif;
+}
+
+.mid-label {
+  font: 13px sans-serif;
 }
 
 .sankey-link {
