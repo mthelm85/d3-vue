@@ -57,7 +57,7 @@ export default {
     return {
       data: require('@/assets/cmpNames.json'), // $20k or more, excludes 09 naics
       width: 1200,
-      height: 1000
+      height: 1040
     }
   },
 
