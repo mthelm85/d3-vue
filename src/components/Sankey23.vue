@@ -56,11 +56,23 @@ export default {
   data () {
     return {
       data: require('@/assets/cmpNames.json'), // $20k or more, excludes 09 naics
-      color: null,
-      sankey: null,
-      sankeyLink: null,
       width: 1200,
       height: 1000
+    }
+  },
+
+  computed: {
+    color () {
+      return d3.scaleOrdinal(d3.schemeCategory10)
+    },
+    sankey () {
+      return Sankey.sankey()
+        .nodeWidth(25)
+        .nodePadding(10)
+        .size([this.width - 20, this.height - 20])
+    },
+    sankeyLink () {
+      return Sankey.sankeyLinkHorizontal()
     }
   },
 
@@ -84,14 +96,8 @@ export default {
   },
 
   mounted () {
-    this.sankey = Sankey.sankey()
-      .nodeWidth(25)
-      .nodePadding(10)
-      .size([this.width - 20, this.height - 20])
 
-    this.color = d3.scaleOrdinal(d3.schemeCategory10)
     this.sankey(this.data)
-    this.sankeyLink = Sankey.sankeyLinkHorizontal()
   }
 }
 </script>

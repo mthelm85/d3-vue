@@ -8,6 +8,7 @@ CMPs by Industry FY18.csv
 cmp.json
 cmp23.json
 cmpNames.json
+DO_COUNTIES_GEO.json
 
 # local env files
 .env.local

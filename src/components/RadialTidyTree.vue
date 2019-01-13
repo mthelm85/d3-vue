@@ -48,7 +48,6 @@ export default {
   },
 
   computed: {
-    // Create the tree layout, set up size, add some separation between cousin nodes
     tree () {
       return d3.tree()
         .size([this.height - 100, this.width - 200])
