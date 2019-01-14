@@ -1,7 +1,7 @@
 <template>
   <v-app>
     <v-content>
-      <Sankey23 />
+      <CirclePack />
     </v-content>
   </v-app>
 </template>
@@ -12,11 +12,13 @@ import Sankey from '@/components/Sankey'
 import Sankey23 from '@/components/Sankey23'
 import TidyTree from '@/components/TidyTree'
 import RadialTidyTree from '@/components/RadialTidyTree'
+import CirclePack from '@/components/CirclePack'
 
 export default {
   name: 'App',
   components: {
     Cartogram,
+    CirclePack,
     Sankey,
     Sankey23,
     TidyTree,

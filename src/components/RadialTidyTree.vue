@@ -1,7 +1,7 @@
 <template lang="html">
-  <svg :width="width" :height="height" style="{ boxSizing: borderBox }">
-    <g class="link" :transform="treeTransform">
-      <g>
+  <svg :width="width" :height="height">
+    <g :transform="treeTransform" >
+      <g class="link">
         <path
           v-for="d in links"
           :d="linkRadial(d)"
@@ -23,8 +23,7 @@
           :class="textClass(d)"
           :key="d.id"
           :text-anchor="textAnchor(d)"
-          dy="0.35em"
-          x="10"
+          :transform="textTransform(d)"
           >
           {{ nodeText(d) }}
         </text>
@@ -39,9 +38,9 @@ import * as d3 from 'd3'
 export default {
   data () {
     return {
-      data: require('@/assets/naicsTreeFull.json'),
-      height: 1000,
-      width: 1000,
+      data: require('@/assets/bwdo.json'),
+      height: 900,
+      width: 900,
       links: null,
       descendants: null,
       descendantsSliced: null,
@@ -60,7 +59,7 @@ export default {
     },
     tree () {
       return d3.tree()
-        .size([2 * Math.PI, this.radius])
+        .size([2 * Math.PI, this.radius * .7])
         .separation((a, b) => (a.parent === b.parent ? 1 : 2) / a.depth)
     },
     treeTransform () {
@@ -87,22 +86,19 @@ export default {
     },
     textClass (d) {
       switch (d.depth) {
-        case 0: return 'text1'
-        case 1: return 'text2'
-        case 2: return 'text3'
-        case 3: return 'text4'
-        case 4: return 'text5'
-        case 5: return 'text6'
+        case 0: return 'radial-text1'
+        case 1: return 'radial-text2'
+        case 2: return 'radial-text3'
+        case 3: return 'radial-text4'
+        case 4: return 'radial-text5'
+        case 5: return 'radial-text6'
       }
     },
     textAnchor (d) {
-      return (d.x < Math.PI) === !d.children ? 'start' : 'end'
+      return d.x < Math.PI ? 'start' : 'end'
     },
     textTransform (d) {
-      return d.x >= Math.PI ? 'rotate(180)' : null
-    },
-    textX (d) {
-      return (d.x < Math.PI) === !d.children ? 6 : -6
+      return d.x < Math.PI ? `rotate(${d.x * 180 / Math.PI - 90}) translate(${d.y + 8}, 0)` : `rotate(${d.x * 180 / Math.PI - 90}) translate(${d.y + 8}, 0) scale(-1, -1)`
     }
   },
 
@@ -132,27 +128,27 @@ export default {
   stroke-width: 1px;
 }
 
-.text1 {
+.radial-text1 {
+  font: 16px sans-serif;
+}
+
+.radial-text2 {
+  font: 14px sans-serif;
+}
+
+.radial-text3 {
   font: 12px sans-serif;
 }
 
-.text2 {
-  font: 10px sans-serif;
-}
-
-.text3 {
-  font: 8px sans-serif;
-}
-
-.text4 {
+.radial-text4 {
   font: 6px sans-serif;
 }
 
-.text5 {
+.radial-text5 {
   font: 5px sans-serif;
 }
 
-.text6 {
+.radial-text6 {
   font: 4px sans-serif;
 }
 </style>
