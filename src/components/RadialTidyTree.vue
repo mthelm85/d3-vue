@@ -1,5 +1,5 @@
 <template lang="html">
-  <svg :width="width" :height="height">
+  <svg :width="width" :height="height" transform="translate(10, 10)">
     <g :transform="treeTransform" >
       <g class="link">
         <path
@@ -22,6 +22,7 @@
           v-for="(d) in descendants"
           :class="textClass(d)"
           :key="d.id"
+          dy="0.31em"
           :text-anchor="textAnchor(d)"
           :transform="textTransform(d)"
           >
@@ -39,8 +40,8 @@ export default {
   data () {
     return {
       data: require('@/assets/bwdo.json'),
-      height: 900,
-      width: 900,
+      height: 1200,
+      width: 1200,
       links: null,
       descendants: null,
       descendantsSliced: null,

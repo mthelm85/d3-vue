@@ -1,7 +1,7 @@
 <template>
   <v-app>
     <v-content>
-      <CirclePack />
+      <Cartogram />
     </v-content>
   </v-app>
 </template>

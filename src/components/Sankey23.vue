@@ -1,5 +1,5 @@
 <template lang="html">
-  <svg :width="width" :height="height" transform="translate(10 10)">
+  <svg :width="width" :height="height" transform="translate(10, 10)">
     <g>
       <g stroke="#000">
         <rect
@@ -96,7 +96,6 @@ export default {
   },
 
   mounted () {
-
     this.sankey(this.data)
   }
 }

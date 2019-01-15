@@ -1,22 +1,24 @@
 <template lang="html">
   <svg :width="width" :height="height" transform="translate(10, 10)">
-    <g opacity="0.85">
+    <text
+      x="50%"
+      transform="translate(0, 20)"
+      text-anchor="middle"
+      class="circle-label">
+      2018 BWs by DO
+    </text>
+    <g opacity="0.85" transform="translate(0, 10)">
       <circle
         v-for="d in descendants"
         :fill="color(d.data.name.replace(/ .*/, ''))"
         :cx="d.x"
         :cy="d.y"
-        :r="d.r">
+        :r="d.r"
+        stroke="black">
         <title>
           <text>{{ d.data.name }}: ${{ d.value.toLocaleString(undefined, {minimumFractionDigits: 2, maximumFractionDigits: 2}) }}</text>
         </title>
       </circle>
-      <text
-        v-for="d in descendants"
-        :transform="`translate(${d.x}, ${d.y})`"
-        dy="4">
-        {{ d.data.name }}
-      </text>
     </g>
   </svg>
 </template>
@@ -31,7 +33,7 @@ export default {
       descendants: null,
       root: null,
       width: 900,
-      height: 900
+      height: 960
     }
   },
 
@@ -57,4 +59,7 @@ export default {
 </script>
 
 <style lang="css">
+.circle-label {
+  font: 22px sans-serif;
+}
 </style>

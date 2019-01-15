@@ -21,7 +21,7 @@ export default {
 
   mounted () {
     this.projection = d3.geoEquirectangular()
-      .scale(150)
+      .scale(100)
 
     this.path = d3.geoPath()
       .projection(this.projection)
