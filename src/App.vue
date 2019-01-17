@@ -1,12 +1,13 @@
 <template>
   <v-app>
     <v-content>
-      <Cartogram />
+      <Calendar />
     </v-content>
   </v-app>
 </template>
 
 <script>
+import Calendar from '@/components/Calendar'
 import Cartogram from '@/components/Cartogram'
 import Sankey from '@/components/Sankey'
 import Sankey23 from '@/components/Sankey23'
@@ -17,6 +18,7 @@ import CirclePack from '@/components/CirclePack'
 export default {
   name: 'App',
   components: {
+    Calendar,
     Cartogram,
     CirclePack,
     Sankey,

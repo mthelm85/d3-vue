@@ -10,6 +10,7 @@ cmp23.json
 cmpNames.json
 DO_COUNTIES_GEO.json
 bwdo.json
+complaints.json
 
 # local env files
 .env.local
