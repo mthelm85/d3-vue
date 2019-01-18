@@ -20,12 +20,23 @@
         </text>
       </g>
       <g v-for="v in d.values">
+        <radialGradient
+          :id="v.date"
+          fx="0.5"
+          fy="0.5"
+          r=".45">
+          <stop stop-opacity="1" offset="30%" :stop-color="color(v.value)"></stop>
+          <stop stop-opacity="0.5" offset="50%" :stop-color="color(v.value)"></stop>
+          <stop stop-opacity="0" offset="60%" :stop-color="color(v.value)"></stop>
+        </radialGradient>
+      </g>
+      <g v-for="v in d.values">
         <rect
-          :width="cellSize - 1"
-          :height="cellSize - 1"
+          :width="cellSize + 5"
+          :height="cellSize + 5"
           :x="rectX(v.date)"
           :y="countDay(v.date) * cellSize + 0.5"
-          :fill="color(v.value)">
+          :fill="`url(#${v.date})`">
           <title>
             <text>{{ v.date }}: {{ v.value }}</text>
           </title>
@@ -33,12 +44,6 @@
       </g>
       <g
         v-for="m in months(d)">
-        <path
-          fill="none"
-          stroke="#fff"
-          stroke-width="3"
-          :d="pathMonth(m)">
-        </path>
         <text
           :x="monthText(m)"
           y="-5">
@@ -66,7 +71,7 @@ export default {
 
   computed: {
     color () {
-      return d3.scaleSequential(d3.interpolatePiYG).domain([40, -20])
+      return d3.scaleSequential(d3.interpolatePiYG).domain([15, 0])
     },
     formatMonth () {
       return d3.timeFormat('%b')

@@ -8,6 +8,7 @@
 
 <script>
 import Calendar from '@/components/Calendar'
+import CalendarBlurred from '@/components/CalendarBlurred'
 import Cartogram from '@/components/Cartogram'
 import Sankey from '@/components/Sankey'
 import Sankey23 from '@/components/Sankey23'
@@ -19,6 +20,7 @@ export default {
   name: 'App',
   components: {
     Calendar,
+    CalendarBlurred,
     Cartogram,
     CirclePack,
     Sankey,
