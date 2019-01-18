@@ -71,7 +71,7 @@ export default {
 
   computed: {
     color () {
-      return d3.scaleSequential(d3.interpolatePiYG).domain([15, 0])
+      return d3.scaleSequential(d3.interpolatePiYG).domain([35, -15])
     },
     formatMonth () {
       return d3.timeFormat('%b')

@@ -9,9 +9,11 @@ cmp.json
 cmp23.json
 cmpNames.json
 DO_COUNTIES_GEO.json
+DO_COUNTIES_TOPO.json
 bwdo.json
 complaints.json
 complaintsATL.json
+complaintsTAMPA.json
 
 # local env files
 .env.local
