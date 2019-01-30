@@ -42,7 +42,7 @@
           :y="(n.y1 + n.y0) / 2"
           :text-anchor="n.x0 < width / 2 ? 'start' : 'end'"
           :transform="textTransform(n.index)">
-          {{ n.name }}
+          {{ n.name.length > 32 ? `${n.name.slice(0, 33)}...` : n.name }}
         </text>
       </g>
     </g>
@@ -55,9 +55,9 @@ import * as Sankey from 'd3-sankey'
 export default {
   data () {
     return {
-      data: require('@/assets/cmpNames.json'), // $20k or more, excludes 09 naics
-      width: 1200,
-      height: 1040
+      data: require('@/assets/julia.json'), // $20k or more, excludes 09 naics
+      width: 1000,
+      height: 950
     }
   },
 

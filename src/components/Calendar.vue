@@ -57,7 +57,7 @@ export default {
   data () {
     return {
       cellSize: 17,
-      data: require('@/assets/complaintsTAMPA.json'),
+      data: require('@/assets/complaintsATL.json'),
       width: 964,
       yearsD3: null,
       years: null
@@ -120,5 +120,8 @@ export default {
 }
 </script>
 
-<style lang="css">
+<style scoped lang="css">
+text {
+  font: 10px sans-serif;
+}
 </style>

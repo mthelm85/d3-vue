@@ -1,6 +1,6 @@
 <template lang="html">
   <svg :width="width" :height="height">
-    <g transform="translate(10, 10)">
+    <g transform="translate(70, 10)">
       <g>
         <path
           v-for="d in descendantsSliced"
@@ -14,16 +14,16 @@
           v-for="d in descendants"
           :key="d.id"
           :class="circleClass(d)"
-          :r="nodeSize(d)"
+          r="4.5"
           :transform="`translate(${d.y}, ${d.x})`">
         </circle>
       </g>
       <g>
         <text
-          :class="textClass(d)"
           v-for="(d) in descendants"
           :key="d.id"
-          :transform="`translate(${d.y + 6}, ${d.x + 4.5})`">
+          :transform="textTransform(d)"
+          :text-anchor="d.children ? 'end' : 'start'">
           {{ nodeText(d) }}
         </text>
       </g>
@@ -37,9 +37,9 @@ import * as d3 from 'd3'
 export default {
   data () {
     return {
-      data: require('@/assets/naicsTreeFull.json'),
-      height: 10000,
-      width: 1600,
+      data: require('@/assets/bwdo.json'),
+      height: 900,
+      width: 700,
       links: null,
       descendants: null,
       descendantsSliced: null,
@@ -51,8 +51,8 @@ export default {
     // Create the tree layout, set up size, add some separation between cousin nodes
     tree () {
       return d3.tree()
-        .size([this.height - 100, this.width - 200])
-        .separation((a, b) => a.parent === b.parent ? 1 : 1.5)
+        .size([this.height - 200, this.width - 250])
+        // .separation((a, b) => a.parent === b.parent ? 1 : 1.5)
     }
   },
 
@@ -69,28 +69,11 @@ export default {
          ${d.parent.y}, ${d.parent.x}
       `
     },
-    nodeSize (d) {
-      switch (d.depth) {
-        case 0: return '6.5'
-        case 1: return '5.5'
-        case 2: return '4.5'
-        case 3: return '3.5'
-        case 4: return '2.5'
-        case 5: return '1.5'
-      }
-    },
     nodeText (d) {
       return d.data.name.length > 35 ? `${d.data.name.substring(0, 35)}...` : d.data.name
     },
-    textClass (d) {
-      switch (d.depth) {
-        case 0: return 'text1'
-        case 1: return 'text2'
-        case 2: return 'text3'
-        case 3: return 'text4'
-        case 4: return 'text5'
-        case 5: return 'text6'
-      }
+    textTransform (d) {
+      return d.children ? `translate(${d.y - 8}, ${d.x + 3.5})` : `translate(${d.y + 6}, ${d.x + 3.5})`
     }
   },
 
@@ -109,7 +92,7 @@ export default {
 }
 </script>
 
-<style lang="css">
+<style scoped lang="css">
 .node--internal {
   fill: #000;
 }
@@ -125,27 +108,12 @@ export default {
   stroke-width: 1px;
 }
 
-.text1 {
-  font: 16px sans-serif;
-}
-
-.text2 {
-  font: 14px sans-serif;
-}
-
-.text3 {
-  font: 13px sans-serif;
-}
-
-.text4 {
-  font: 12px sans-serif;
-}
-
-.text5 {
+text {
   font: 11px sans-serif;
 }
 
-.text6 {
-  font: 10px sans-serif;
+text:hover {
+  fill: #555;
+  cursor: default;
 }
 </style>

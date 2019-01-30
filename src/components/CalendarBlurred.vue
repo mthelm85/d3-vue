@@ -125,5 +125,9 @@ export default {
 }
 </script>
 
-<style lang="css">
+<style scoped lang="css">
+text {
+  font: 12px sans-serif;
+  fill: #555;
+}
 </style>

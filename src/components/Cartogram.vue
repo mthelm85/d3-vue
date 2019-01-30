@@ -3,7 +3,8 @@
     <path
       v-for="f in data.features"
       :d="path(f)"
-      class="land">
+      class="land"
+      :fill="color(f.properties.BWs)">
     </path>
     <!-- <path
       v-for="f in data.features"
@@ -20,12 +21,20 @@ import * as d3 from 'd3'
 export default {
   data () {
     return {
-      data: require('@/assets/DO_COUNTIES_GEO.json'),
+      data: require('@/assets/BW_BY_DO_GEO.json'),
       width: 900,
       height: 600,
       path: null,
       projection: null,
       transition: null
+    }
+  },
+
+  computed: {
+    color () {
+      return d3.scaleQuantize()
+        .domain([100000, 10000000])
+        .range(d3.schemeBlues[9])
     }
   },
 
@@ -44,7 +53,7 @@ export default {
       let centroid = this.path.centroid(f),
           x = centroid[0],
           y = centroid[1]
-      return `translate(${x}, ${y}) scale(${Math.sqrt(f.properties.DO_ID / 1.1 * .0001) * 5 || 0}) translate(${-x}, ${-y})`
+      return `translate(${x}, ${y}) scale(${Math.sqrt(f.properties.BWs) * 5 || 0}) translate(${-x}, ${-y})`
     }
   }
 }
@@ -52,7 +61,6 @@ export default {
 
 <style lang="css">
 .land {
-  fill: #fff;
   stroke: #ccc;
 }
 

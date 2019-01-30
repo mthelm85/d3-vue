@@ -40,8 +40,8 @@ export default {
   data () {
     return {
       data: require('@/assets/bwdo.json'),
-      height: 1200,
-      width: 1200,
+      height: 700,
+      width: 700,
       links: null,
       descendants: null,
       descendantsSliced: null,
@@ -99,11 +99,18 @@ export default {
       return d.x < Math.PI ? 'start' : 'end'
     },
     textTransform (d) {
-      return d.x < Math.PI ? `rotate(${d.x * 180 / Math.PI - 90}) translate(${d.y + 8}, 0)` : `rotate(${d.x * 180 / Math.PI - 90}) translate(${d.y + 8}, 0) scale(-1, -1)`
+      if (d.depth === 0) {
+        return `rotate(${d.x * 180 / Math.PI + 180}) translate(${d.y + 8}, 0)`
+      } else if (d.depth === 1) {
+        return d.x < Math.PI ? `rotate(${d.x * 180 / Math.PI - 90}) translate(${d.y + 8}, 0)` : `rotate(${d.x * 180 / Math.PI - 90}) translate(${d.y + 8}, 0) scale(-1, -1)`
+      } else {
+        return d.x < Math.PI ? `rotate(${d.x * 180 / Math.PI - 90}) translate(${d.y + 8}, 0)` : `rotate(${d.x * 180 / Math.PI - 90}) translate(${d.y + 8}, 0) scale(-1, -1)`
+      }
+
     }
   },
 
-  mounted () {
+  created () {
     this.root = d3.hierarchy(this.data)
     this.descendants = this.root.descendants()
     this.links = this.root.links()
@@ -134,11 +141,11 @@ export default {
 }
 
 .radial-text2 {
-  font: 14px sans-serif;
+  font: 12px sans-serif;
 }
 
 .radial-text3 {
-  font: 12px sans-serif;
+  font: 10px sans-serif;
 }
 
 .radial-text4 {

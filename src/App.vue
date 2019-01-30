@@ -1,7 +1,7 @@
 <template>
   <v-app>
     <v-content>
-      <Cartogram />
+      <TidyTree />
     </v-content>
   </v-app>
 </template>
